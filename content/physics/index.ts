@@ -1,4 +1,5 @@
 import type { Equation, Quantity, Scientist } from "./types";
+import { constants as constantSeeds } from "./data/constants";
 import { quantities as quantitySeeds } from "./data/quantities";
 import { equations as equationData } from "./data/equations";
 import { scientists as scientistSeeds } from "./data/scientists";
@@ -20,10 +21,22 @@ for (const eq of equationData) {
   }
 }
 
-export const quantities: Quantity[] = quantitySeeds.map((q) => ({
+const allQuantitySeeds = [...quantitySeeds, ...constantSeeds];
+
+export const quantities: Quantity[] = allQuantitySeeds.map((q) => ({
   ...q,
   equationIds: equationIdsByQuantity.get(q.id) ?? [],
 }));
+
+/** Measurable quantities (periodic table, rows 1–7). */
+export const physicalQuantities = quantities.filter(
+  (q) => q.category !== "constants",
+);
+
+/** Fundamental constants (A-level data sheet values). */
+export const fundamentalConstants = quantities.filter(
+  (q) => q.category === "constants",
+);
 
 // Derive each scientist's quantityIds from their equations, merged with any
 // explicitly authored ids.

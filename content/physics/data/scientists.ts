@@ -24,7 +24,15 @@ export const scientists: ScientistSeed[] = [
     died: 1727,
     blurb:
       "Laid the foundations of classical mechanics with his laws of motion and universal gravitation.",
-    equationIds: ["newtons-second-law", "momentum", "newton-gravitation"],
+    equationIds: [
+      "newtons-second-law",
+      "momentum",
+      "newton-gravitation",
+      "gravitational-field-radial",
+      "gravitational-potential-def",
+      "centripetal-force",
+      "shm-period-pendulum",
+    ],
   },
   {
     id: "coulomb",
@@ -103,7 +111,14 @@ export const scientists: ScientistSeed[] = [
     died: 1906,
     blurb:
       "Founder of statistical mechanics, linking entropy to microscopic states.",
-    equationIds: ["ideal-gas-law", "entropy-change", "boltzmann-entropy"],
+    equationIds: [
+      "ideal-gas-law",
+      "ideal-gas-kb",
+      "entropy-change",
+      "boltzmann-entropy",
+      "molecular-kinetic-energy",
+      "stefan-boltzmann-law",
+    ],
   },
   {
     id: "lorentz",
@@ -132,6 +147,7 @@ export const scientists: ScientistSeed[] = [
     blurb:
       "Originated quantum theory by proposing that energy is emitted in discrete quanta.",
     equationIds: ["planck-relation"],
+    quantityIds: ["planck-constant"],
   },
   {
     id: "einstein",
@@ -155,5 +171,91 @@ export const scientists: ScientistSeed[] = [
     blurb:
       "Proposed that all matter exhibits wave-like behaviour, founding wave mechanics.",
     equationIds: ["de-broglie"],
+  },
+  {
+    id: "cavendish",
+    name: "Henry Cavendish",
+    born: 1731,
+    died: 1810,
+    blurb:
+      "Measured the gravitational constant G with a torsion balance experiment.",
+    equationIds: ["newton-gravitation", "gravitational-field-radial"],
+  },
+  {
+    id: "avogadro",
+    name: "Amedeo Avogadro",
+    born: 1776,
+    died: 1856,
+    blurb:
+      "Hypothesised equal volumes of gases contain equal numbers of molecules; the mole is named after him.",
+    equationIds: ["ideal-gas-law"],
+    quantityIds: ["avogadro-constant"],
+  },
+  {
+    id: "ampere",
+    name: "André-Marie Ampère",
+    born: 1775,
+    died: 1836,
+    blurb:
+      "Founded electrodynamics; the SI unit of current bears his name.",
+    equationIds: ["magnetic-force-wire"],
+    quantityIds: ["electric-current"],
+  },
+  {
+    id: "young",
+    name: "Thomas Young",
+    born: 1773,
+    died: 1829,
+    blurb:
+      "Demonstrated light's wave nature and defined the elastic modulus; pioneered interference and diffraction.",
+    equationIds: ["young-modulus-def", "stress-def", "strain-def", "diffraction-grating"],
+    quantityIds: ["young-modulus"],
+  },
+  {
+    id: "stefan",
+    name: "Josef Stefan",
+    born: 1835,
+    died: 1893,
+    blurb: "Discovered the T⁴ law of thermal radiation later explained by Boltzmann.",
+    equationIds: ["stefan-boltzmann-law"],
+    quantityIds: ["stefan-boltzmann-constant"],
+  },
+  {
+    id: "wien",
+    name: "Wilhelm Wien",
+    born: 1864,
+    died: 1928,
+    blurb: "Formulated Wien's displacement law for black-body radiation spectra.",
+    equationIds: ["wiens-law"],
+    quantityIds: ["wien-constant"],
+  },
+  {
+    id: "millikan",
+    name: "Robert Millikan",
+    born: 1868,
+    died: 1953,
+    blurb:
+      "Measured the elementary charge e with the oil-drop experiment.",
+    equationIds: ["photoelectric"],
+    quantityIds: ["elementary-charge"],
+  },
+  {
+    id: "rutherford",
+    name: "Ernest Rutherford",
+    born: 1871,
+    died: 1937,
+    blurb:
+      "Discovered the nucleus and pioneered the model of radioactive decay.",
+    equationIds: ["radioactive-decay", "activity-decay", "half-life-relation"],
+  },
+  {
+    id: "hubble",
+    name: "Edwin Hubble",
+    born: 1889,
+    died: 1953,
+    blurb:
+      "Showed galaxies recede with velocity proportional to distance, evidence for cosmic expansion.",
+    equationIds: ["hubble-law"],
+    quantityIds: ["hubble-constant"],
   },
 ];

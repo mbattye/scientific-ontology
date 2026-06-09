@@ -41,6 +41,12 @@ export const categories: CategoryMeta[] = [
     name: "Relativity",
     blurb: "Space, time and gravity at high speeds and large scales.",
   },
+  {
+    id: "constants",
+    name: "Fundamental Constants",
+    blurb:
+      "Defined physical constants from A-level data sheets — fixed values that anchor formulae.",
+  },
 ];
 
 export const categoryMap: Record<Category, CategoryMeta> = Object.fromEntries(
@@ -120,5 +126,12 @@ export const categoryStyles: Record<Category, CategoryStyle> = {
     swatch: "bg-indigo-500",
     text: "text-indigo-700 dark:text-indigo-300",
     border: "border-indigo-300 dark:border-indigo-700",
+  },
+  constants: {
+    tile: "bg-yellow-100 text-yellow-950 dark:bg-yellow-900/40 dark:text-yellow-100",
+    tileHover: "hover:bg-yellow-200 dark:hover:bg-yellow-800",
+    swatch: "bg-yellow-500",
+    text: "text-yellow-700 dark:text-yellow-300",
+    border: "border-yellow-300 dark:border-yellow-700",
   },
 };

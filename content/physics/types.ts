@@ -10,7 +10,8 @@ export type Category =
   | "waves"
   | "optics"
   | "quantum"
-  | "relativity";
+  | "relativity"
+  | "constants";
 
 export interface CategoryMeta {
   id: Category;
