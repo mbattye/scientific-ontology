@@ -96,7 +96,7 @@ export function QuantityDetail({ quantity }: QuantityDetailProps) {
           How values of {quantity.name.toLowerCase()} span the physical world (in{" "}
           {quantity.magnitudeRange.unit}, log scale).
         </p>
-        <div className="mt-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-5">
+        <div className="mt-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-5 sm:px-5">
           <RangeScale range={quantity.magnitudeRange} />
         </div>
       </section>
