@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { MathRenderer } from "./MathRenderer";
 import { RangeScale } from "./RangeScale";
+import { SciNotation } from "./SciNotation";
 import {
   categoryMap,
   categoryStyles,
@@ -19,6 +20,10 @@ export function QuantityDetail({ quantity }: QuantityDetailProps) {
   const equations = getEquations(quantity.equationIds);
   const scientists = getScientistsForQuantity(quantity.id);
   const siUnit = quantity.units[0];
+  const isConstant = quantity.category === "constants";
+  const definedValue =
+    quantity.magnitudeRange.examples[0]?.value ??
+    quantity.magnitudeRange.min;
 
   return (
     <article className="space-y-8">
@@ -89,16 +94,51 @@ export function QuantityDetail({ quantity }: QuantityDetailProps) {
         </div>
       </section>
 
-      {/* Order-of-magnitude range */}
+      {/* Defined value (constants) or order-of-magnitude range */}
       <section>
-        <h3 className="mb-1 text-sm font-semibold">Order of magnitude</h3>
-        <p className="text-xs text-[var(--muted)]">
-          How values of {quantity.name.toLowerCase()} span the physical world (in{" "}
-          {quantity.magnitudeRange.unit}, log scale).
-        </p>
-        <div className="mt-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-5 sm:px-5">
-          <RangeScale range={quantity.magnitudeRange} />
-        </div>
+        {isConstant ? (
+          <>
+            <h3 className="mb-1 text-sm font-semibold">Defined value</h3>
+            <p className="text-xs text-[var(--muted)]">
+              Fixed constant from the A-level data sheets.
+            </p>
+            <div className="mt-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-4 py-5">
+              <p className="text-2xl font-semibold tracking-tight">
+                <SciNotation value={definedValue} />{" "}
+                <span className="text-lg text-[var(--muted)]">
+                  {quantity.magnitudeRange.unit}
+                </span>
+              </p>
+              {quantity.magnitudeRange.examples[0] && (
+                <p className="mt-2 text-sm text-[var(--muted)]">
+                  {quantity.magnitudeRange.examples[0].label}
+                </p>
+              )}
+              {quantity.units.length > 1 && (
+                <ul className="mt-4 space-y-1 border-t border-[var(--border)] pt-3 text-sm text-[var(--muted)]">
+                  {quantity.units.slice(1).map((u) => (
+                    <li key={u.symbol}>
+                      {u.name} ({u.symbol}):{" "}
+                      <SciNotation value={definedValue / u.siFactor} />{" "}
+                      {u.symbol}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <h3 className="mb-1 text-sm font-semibold">Order of magnitude</h3>
+            <p className="text-xs text-[var(--muted)]">
+              How values of {quantity.name.toLowerCase()} span the physical world
+              (in {quantity.magnitudeRange.unit}, log scale).
+            </p>
+            <div className="mt-2 rounded-xl border border-[var(--border)] bg-[var(--surface)] px-3 py-5 sm:px-5">
+              <RangeScale range={quantity.magnitudeRange} />
+            </div>
+          </>
+        )}
       </section>
 
       {/* Equations */}

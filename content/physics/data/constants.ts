@@ -273,4 +273,26 @@ export const constants: QuantitySeed[] = [
       examples: [{ label: "A-level value (Earth's surface)", value: 9.81 }],
     },
   },
+  {
+    id: "hubble-constant",
+    name: "Hubble Constant",
+    symbol: "H_0",
+    category: "constants",
+    grid: { col: 9, row: 2 },
+    dimension: "T^{-1}",
+    description:
+      "Relates recession velocity of galaxies to their distance (Hubble's law).",
+    units: [
+      { name: "per second", symbol: "s⁻¹", siFactor: 1 },
+      { name: "km per second per megaparsec", symbol: "km/s/Mpc", siFactor: 3.24e-20 },
+    ],
+    magnitudeRange: {
+      unit: "s⁻¹",
+      min: 2.1e-18,
+      max: 2.1e-18,
+      examples: [
+        { label: "A-level value (~65 km/s/Mpc)", value: 2.1e-18 },
+      ],
+    },
+  },
 ];

@@ -1229,20 +1229,4 @@ export const quantities: QuantitySeed[] = [
       ],
     },
   },
-  {
-    id: "hubble-constant",
-    name: "Hubble Constant",
-    symbol: "H_0",
-    category: "relativity",
-    grid: { col: 12, row: 4 },
-    dimension: "T^{-1}",
-    description: "Relates recession velocity of galaxies to their distance.",
-    units: [{ name: "per second", symbol: "s⁻¹", siFactor: 1 }],
-    magnitudeRange: {
-      unit: "s⁻¹",
-      min: 2e-18,
-      max: 2e-18,
-      examples: [{ label: "A-level value (~65 km/s/Mpc)", value: 2.1e-18 }],
-    },
-  },
 ];

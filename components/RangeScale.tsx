@@ -1,3 +1,4 @@
+import { SciNotation } from "./SciNotation";
 import type { MagnitudeExample, MagnitudeRange } from "@/content/physics";
 
 interface RangeScaleProps {
@@ -17,27 +18,16 @@ interface LabelLayout {
 /** Approximate horizontal footprint of a label card as % of track width. */
 const LABEL_WIDTH_PCT = 34;
 const MIN_GAP_PCT = 3;
-/** Label card height (title + value + padding). */
-const CARD_HEIGHT = 2.75; // rem
+/** Label card height (title + value + padding + superscripts). */
+const CARD_HEIGHT = 3.25; // rem
+/** Half-height of the marker dot. */
+const DOT_HALF = 0.5; // rem
 /** Gap between the track dot and the nearest label row. */
-const GAP_FROM_DOT = 0.6; // rem
+const GAP_FROM_DOT = 0.75; // rem
 /** Extra vertical space per additional stacked lane. */
-const LANE_STACK = 3.1; // rem
+const LANE_STACK = 3.35; // rem
 /** Horizontal inset so edge labels stay inside the container (% each side). */
 const TRACK_INSET = 8;
-
-function Sci({ value }: { value: number }) {
-  if (value === 0) return <>0</>;
-  const exponent = Math.floor(Math.log10(Math.abs(value)));
-  const mantissa = value / 10 ** exponent;
-  const mantissaText =
-    Math.abs(mantissa - 1) < 0.05 ? "" : `${mantissa.toFixed(1)} × `;
-  return (
-    <>
-      {mantissaText}10<sup>{exponent}</sup>
-    </>
-  );
-}
 
 function anchorFor(pos: number): Anchor {
   if (pos < 20) return "start";
@@ -84,11 +74,14 @@ function layoutLabels(
   const belowLanes: Array<Array<{ start: number; end: number }>> = [];
   const layouts: LabelLayout[] = [];
 
-  for (const { example, pos: position } of sorted) {
+  sorted.forEach(({ example, pos: position }, index) => {
     const anchor = anchorFor(position);
     const aboveLane = firstFreeLane(position, anchor, aboveLanes);
     const belowLane = firstFreeLane(position, anchor, belowLanes);
-    const above = aboveLane <= belowLane;
+    // When lanes tie, alternate above/below so labels don't all stack on one side.
+    const above =
+      aboveLane < belowLane ||
+      (aboveLane === belowLane && index % 2 === 0);
     const lane = above ? aboveLane : belowLane;
     const lanes = above ? aboveLanes : belowLanes;
 
@@ -96,7 +89,7 @@ function layoutLabels(
     lanes[lane].push(spanFor(position, anchor));
 
     layouts.push({ example, pos: position, lane, above, anchor });
-  }
+  });
 
   return layouts;
 }
@@ -120,7 +113,7 @@ function ExampleLabel({
         {example.label}
       </div>
       <div className="mt-0.5 text-[10px] leading-snug text-[var(--muted)]">
-        <Sci value={example.value} /> {unit}
+        <SciNotation value={example.value} /> {unit}
       </div>
     </div>
   );
@@ -156,14 +149,13 @@ export function RangeScale({ range }: RangeScaleProps) {
 
   const laneOffset = (lane: number) => GAP_FROM_DOT + lane * LANE_STACK;
 
-  const paddingTop =
-    maxAboveLane >= 0
-      ? laneOffset(maxAboveLane) + CARD_HEIGHT + 1.25
-      : 1;
-  const paddingBottom =
-    maxBelowLane >= 0
-      ? laneOffset(maxBelowLane) + CARD_HEIGHT + 1.25
-      : 1;
+  const verticalExtent = (maxLane: number) =>
+    maxLane >= 0
+      ? laneOffset(maxLane) + CARD_HEIGHT + DOT_HALF + 1.75
+      : 1.25;
+
+  const paddingTop = verticalExtent(maxAboveLane);
+  const paddingBottom = verticalExtent(maxBelowLane);
 
   return (
     <div className="overflow-x-auto">
@@ -229,13 +221,13 @@ export function RangeScale({ range }: RangeScaleProps) {
             <span className="block text-[10px] uppercase tracking-wide opacity-70">
               Lower limit
             </span>
-            <Sci value={range.min} /> {range.unit}
+            <SciNotation value={range.min} /> {range.unit}
           </span>
           <span className="min-w-0 shrink-0 text-right">
             <span className="block text-[10px] uppercase tracking-wide opacity-70">
               Upper limit
             </span>
-            <Sci value={range.max} /> {range.unit}
+            <SciNotation value={range.max} /> {range.unit}
           </span>
         </div>
       </div>
