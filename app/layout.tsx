@@ -13,10 +13,33 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteDescription =
+  "A topsight of the physical sciences: drill from quantities and equations down to units, order-of-magnitude ranges, and the scientists behind them.";
+
 export const metadata: Metadata = {
-  title: "Scientific Ontology",
-  description:
-    "A topsight of the physical sciences: drill from quantities and equations down to units, order-of-magnitude ranges, and the scientists behind them.",
+  metadataBase: new URL("https://sciont.org"),
+  title: {
+    default: "Scientific Ontology",
+    template: "%s",
+  },
+  description: siteDescription,
+  applicationName: "Scientific Ontology",
+  openGraph: {
+    type: "website",
+    locale: "en_GB",
+    siteName: "Scientific Ontology",
+    title: "Scientific Ontology",
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary",
+    title: "Scientific Ontology",
+    description: siteDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
