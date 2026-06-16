@@ -29,8 +29,8 @@ export default function QuantitiesPage() {
             Fundamental Constants
           </h2>
           <p className="mt-1 max-w-2xl text-sm text-[var(--muted)]">
-            Fixed values from AQA and Edexcel A-level data sheets. Each links
-            into the same drill-down — units, defining equations, and where the
+            Fixed values from AQA and Edexcel A-level data sheets (including
+            astronomical data). Each links into the same drill-down — units, defining equations, and where the
             constant appears across physics.
           </p>
         </div>
